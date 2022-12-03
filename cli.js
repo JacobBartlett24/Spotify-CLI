@@ -12,10 +12,10 @@ const cli = meow(`
 	  $ Spotify-CLI
 
 	Options
-		--name  Your name
+		--auth  Spotify Auth
 
 	Examples
-	  $ Spotify-CLI --name=Jane
+	  $ Spotify-CLI --auth=Auth
 	  Hello, Jane
 `);
 
