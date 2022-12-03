@@ -11,18 +11,22 @@ const PlaylistPage = importJsx('./PlaylistPage')
 const MainView = importJsx('./MainView')
 const MusicPlayer = importJsx('./MusicPlayer')
 const Unknown = importJsx('./Unknown')
-const UserInput = importJsx('./UserInput');
 
 const MainBox = (props) => {
 
   const { useApp, useInput } = require("ink");
   const {exit} = useApp();
+  
+  const [focusedBox,switchFocusedBox] = useState([
+                                                  [1,2]
+                                                  [3,4]
+                                                ])
 
   useInput((input, key) => {
 	  if (input === 'q') {
 		  exit()
 	  }else if(input === key.rightArrow){
-    
+      switchFocusedBox()
     }
 	});
 
@@ -30,7 +34,6 @@ const MainBox = (props) => {
   return (
     
     <Box borderColor={'green'} borderStyle='single' height={58} flexDirection="column">
-  		<UserInput />
       <Gradient name="summer">
         <BigText
           text={props.title} 
