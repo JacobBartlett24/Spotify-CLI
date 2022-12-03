@@ -2,7 +2,8 @@
 
 const React = require('react');
 const { useState, useEffect } = React;
-const { Box, Newline } = require('ink');
+const { Box, Newline, useInput, useApp } = require('ink');
+const TextInput = require('ink-text-input').default;
 const Gradient = require('ink-gradient');
 const BigText = require('ink-big-text');
 const importJsx = require('import-jsx');
@@ -11,11 +12,10 @@ const MainView = importJsx('./MainView')
 const MusicPlayer = importJsx('./MusicPlayer')
 const Unknown = importJsx('./Unknown')
 
-
 const MainBox = (props) => {
 
   const [data, setData] = useState([]);
-
+  
   return (
     <Box borderColor={'green'} borderStyle='single' height={58} flexDirection="column">
       <Gradient name="summer">
