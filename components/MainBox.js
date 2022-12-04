@@ -1,16 +1,18 @@
 // MainBox.js
-
 const React = require('react');
 const { useState, useEffect } = React;
 const { Box, Newline, useInput, useApp } = require('ink');
 const TextInput = require('ink-text-input').default;
+const API = require('../SpotifyAPI/API');
 const Gradient = require('ink-gradient');
 const BigText = require('ink-big-text');
 const importJsx = require('import-jsx');
-const PlaylistPage = importJsx('./PlaylistPage')
-const MainView = importJsx('./MainView')
-const MusicPlayer = importJsx('./MusicPlayer')
-const Unknown = importJsx('./Unknown')
+const PlaylistPage = importJsx('./PlaylistPage');
+const MainView = importJsx('./MainView');
+const MusicPlayer = importJsx('./MusicPlayer');
+const Unknown = importJsx('./Unknown');
+
+
 
 const MainBox = (props) => {
 
@@ -25,11 +27,10 @@ const MainBox = (props) => {
   useInput((input, key) => {
 	  if (input === 'q') {
 		  exit()
-	  }else if(input === key.rightArrow){
-      switchFocusedBox()
+	  }else if(input === 'a'){
+      API()
     }
 	});
-
 
   return (
     
