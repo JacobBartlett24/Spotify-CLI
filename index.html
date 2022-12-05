@@ -5,8 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script ></script>
 </head>
+
+
 <body>
+    <form action="http://localhost:8080/post" method="post">
+        <input value="" id="input" name="code" hidden></input>
+        <button type="submit">Submit Code</button>
+    </form>
     <div>Redirect</div>
+    <script>
+        let searchParams = new URLSearchParams(window.location.search)
+        let code = searchParams.get('code')
+        document.getElementById('input').setAttribute('value',code)
+    </script>
 </body>
 </html>
