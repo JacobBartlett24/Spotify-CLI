@@ -37,7 +37,7 @@ const MainBox = (props) => {
         </Box>
         <Box height={"100%"} width={"85%"} flexDirection="column">
           <Box borderStyle='single' borderColor={'green'} height={"70%"} width={"100%"}>
-            <MainView />
+            <MainView userInformation={props.userInformation}/>
           </Box>
           <Box borderStyle='single' borderColor={'green'} height={"30%"} width={"100%"}>
             <Unknown />

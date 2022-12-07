@@ -48,6 +48,10 @@ const API = async () =>{
 
       userInformation = response.data;
 
+      axios.defaults.baseURL = 'https://api.spotify.com/v1';
+      axios.defaults.headers.common['Authorization'] = `Bearer ${userInformation.access_token}`;
+      axios.defaults.headers.common['Content-Type'] = 'application/json';
+
       res.send(userInformation)
 
       fs.writeFile('./SpotifyAPI/data.json', JSON.stringify(userInformation),'utf-8',(err) =>{

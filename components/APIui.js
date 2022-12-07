@@ -10,13 +10,12 @@ const MainBox = importJsx('./MainBox')
 const APIui = () =>{
   
   const [result, setResult] = useState('')
-  const [watchResultCounter, setWatchResultCounter] = useState(0)
   const {exit} = useApp();
 
   useEffect(() =>{
     console.log(result)
     if(result !== ''){
-      render(<MainBox title='Spotify'/>)
+      render(<MainBox title='Spotify' userInformation={result}/>)
     }
   },[result])
 
