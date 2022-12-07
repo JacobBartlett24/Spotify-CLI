@@ -1,7 +1,6 @@
 const React = require('react');
 const { useState, useEffect } = React;
-const { useApp, useInput, Text } = require("ink");
-const { render } = require('ink-testing-library');
+const { render, useApp, useInput, Text } = require("ink");
 const API = require('../SpotifyAPI/API')
 const fs = require('fs')
 const data = require('../SpotifyAPI/data.json');
@@ -11,14 +10,19 @@ const MainBox = importJsx('./MainBox')
 const APIui = () =>{
   
   const [result, setResult] = useState('')
+  const [watchResultCounter, setWatchResultCounter] = useState(0)
   const {exit} = useApp();
 
   useEffect(() =>{
-    render(<MainBox title='Spotify'/>)
+    console.log(result)
+    if(result !== ''){
+      render(<MainBox title='Spotify'/>)
+    }
   },[result])
 
   fs.watch('./SpotifyAPI/data.json', () => {
     setResult(fs.readFileSync('./SpotifyAPI/data.json').toString());
+    console.log(result)
   })
 
   useInput(async (input, key) => {
