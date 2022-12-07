@@ -24,7 +24,7 @@ const MainBox = (props) => {
                                                   [3,4]
                                                 ])
 
-  useInput((input, key) => {
+  useInput(async (input, key) => {
 	  if (input === 'q') {
 		  exit()
 	  }else if(input === 'a'){
