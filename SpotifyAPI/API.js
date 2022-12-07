@@ -1,14 +1,18 @@
 const express = require('express')
 const open = require('open');
-const { useState } = require('react');
+
+const bodyParser = require('body-parser');
+const axios = require('axios')
+const importJsx = require('import-jsx');
+const fs = require('fs')
+const MainBox = importJsx('../components/MainBox');
+
 const clientID = "c5f6e12045d44f5bb46e0382bcff9060"
 const clientSecret = "28c70e35b7464a0d8965ee82034ee87b"
 const redirectURI = "http://localhost:5500/index.html"
-const bodyParser = require('body-parser');
-const axios = require('axios')
-const qs = require('qs');
-const MainBox = require('../components/MainBox')
+
 const app = express()
+
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.listen('8080', ()=>{
@@ -42,11 +46,13 @@ const API = async () =>{
         }
       })
 
-      res.send('ssasdasd')
-      
       userInformation = response.data;
 
-      return(userInformation)
+      res.send(userInformation)
+
+      fs.writeFile('./SpotifyAPI/data.json', JSON.stringify(userInformation),'utf-8',(err) =>{
+        console.log(`err = ${err}`)
+      })
 
       }catch(err){
         console.log(err)

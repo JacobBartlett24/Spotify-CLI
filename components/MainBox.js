@@ -16,22 +16,6 @@ const Unknown = importJsx('./Unknown');
 
 const MainBox = (props) => {
 
-  const { useApp, useInput } = require("ink");
-  const {exit} = useApp();
-  
-  const [focusedBox,switchFocusedBox] = useState([
-                                                  [1,2]
-                                                  [3,4]
-                                                ])
-
-  useInput(async (input, key) => {
-	  if (input === 'q') {
-		  exit()
-	  }else if(input === 'a'){
-      API()
-    }
-	});
-
   return (
     
     <Box borderColor={'green'} borderStyle='single' height={58} flexDirection="column">
