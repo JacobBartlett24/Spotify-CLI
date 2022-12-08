@@ -9,15 +9,15 @@ const axios = require('axios')
 
 const MainView = (props) =>{
 
-    const [data,setData] = useState({})
+    const [data,setData] = useState('')
 
-    useEffect(() => {
-        setData(axios.get('/me'))
+    useEffect(async () => {
+        const temp = await axios.get('/me')
+        setData(temp.data.display_name)
     },[])
 
     return(
         <Box height={"100%"} width={"100%"} alignItems='center' justifyContent='center'>
-            <Text backgroundColor={'green'}> Connect Spotify </Text>
             <Text>{data}</Text>
         </Box>
     )

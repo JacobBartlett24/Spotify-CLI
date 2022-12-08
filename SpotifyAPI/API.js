@@ -54,6 +54,8 @@ const API = async () =>{
 
       res.send(userInformation)
 
+      let userName = axios.get('/me');
+
       fs.writeFile('./SpotifyAPI/data.json', JSON.stringify(userInformation),'utf-8',(err) =>{
         console.log(`err = ${err}`)
       })
