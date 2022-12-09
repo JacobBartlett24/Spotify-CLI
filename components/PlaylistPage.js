@@ -19,14 +19,6 @@ const PlaylistPage = (props) =>{
         ));
     },[])
     
-    useEffect(() =>{
-        playlistData.forEach(element => {
-            console.log(element)
-        });
-    }, [playlistData])
-
-
-
     return(
         <Box flexDirection='column'>
             <Text>Playlist Page</Text>
@@ -38,9 +30,6 @@ const PlaylistPage = (props) =>{
 
 const Playlist = (props) =>{
     const {isFocused} = useFocus();
-    
-
-
 
     return(
         <Box>

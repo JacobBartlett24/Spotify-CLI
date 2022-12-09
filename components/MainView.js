@@ -26,20 +26,35 @@ const MainView = (props) =>{
     },[props.playlistId])
 
     return(
-        <Box height={"100%"} width={"100%"} flexDirection='column' alignItems='center' justifyContent='center' padding={2}>
-            <Gradient name="summer">
-                <BigText
-                  text={playlist ? playlist.data.name : ''} 
-                  align='center' 
-                  font='tiny'
-                />
-            </Gradient>
+        <Box height={"100%"} width={"100%"} borderStyle='single' flexDirection='column' alignItems='center' justifyContent='center' padding={2}>
+            <BigText
+              text= {playlist ? playlist.data.name : 'Playlist Name'}
+              font='tiny'
+            />
+            <Tracks id={playlist ? props.playlistId : ''}/>
+
         </Box>
     )
 }
 
-const Track = () =>{
+const Tracks = (props) =>{
+    const [tracks,setTracks] = useState([])
+    
+    useEffect(async () => {
+        
+        if(props.id !== ''){
+            
+            const temp = await axios.get(`/playlists/${props.id}/tracks`)
+            setTracks(temp.data.items.map((item,i) =>
+                <Text key={item.track.name}>{item.track.name}</Text>
+            ))
+            console.log(tracks)
+        }
+    },[props.id])
 
+    return(
+        <Box height={"30%"} width={"100%"} borderStyle='single'>{props.id ? tracks : <Text>no tracks</Text>}</Box>
+    )
 }
 
 module.exports = MainView;
