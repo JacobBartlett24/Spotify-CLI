@@ -41,19 +41,21 @@ const Tracks = (props) =>{
     const [tracks,setTracks] = useState([])
     
     useEffect(async () => {
-        
         if(props.id !== ''){
-            
             const temp = await axios.get(`/playlists/${props.id}/tracks`)
             setTracks(temp.data.items.map((item,i) =>
-                <Text key={item.track.name}>{item.track.name}</Text>
+                <>
+                    <Text key={item.track.name}>{item.track.name}</Text>
+                    <Newline />
+                </>
             ))
             console.log(tracks)
         }
     },[props.id])
 
+
     return(
-        <Box height={"30%"} width={"100%"} borderStyle='single'>{props.id ? tracks : <Text>no tracks</Text>}</Box>
+        <Box flexDirection='column' height={"30%"} width={"100%"} borderStyle='single'>{props.id ? tracks : <Text>no tracks</Text>}</Box>
     )
 }
 
