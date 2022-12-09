@@ -1,7 +1,7 @@
 // MainBox.js
 const React = require('react');
 const { useState, useEffect } = React;
-const { Box, Newline, useInput, useApp } = require('ink');
+const { Box, Newline, useInput, useApp, useFocus, Text } = require('ink');
 const TextInput = require('ink-text-input').default;
 const API = require('../SpotifyAPI/API');
 const Gradient = require('ink-gradient');
@@ -12,9 +12,14 @@ const MainView = importJsx('./MainView');
 const MusicPlayer = importJsx('./MusicPlayer');
 const Unknown = importJsx('./Unknown');
 
-
-
 const MainBox = (props) => {
+  const {exit} = useApp();
+
+  useInput(async (input, key) => {
+	  if (input === 'q') {
+		  exit()
+    }
+	});
 
   return (
     
