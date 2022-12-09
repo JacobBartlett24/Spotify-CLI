@@ -7,6 +7,7 @@ const API = require('../SpotifyAPI/API');
 const Gradient = require('ink-gradient');
 const BigText = require('ink-big-text');
 const importJsx = require('import-jsx');
+const { default: FocusContext } = require('ink/build/components/FocusContext');
 const PlaylistPage = importJsx('./PlaylistPage');
 const MainView = importJsx('./MainView');
 const MusicPlayer = importJsx('./MusicPlayer');
@@ -14,12 +15,17 @@ const Unknown = importJsx('./Unknown');
 
 const MainBox = (props) => {
   const {exit} = useApp();
+  const [playlistId, setPlaylistId] = useState('')
 
-  useInput(async (input, key) => {
+  useInput((input, key) => {
 	  if (input === 'q') {
 		  exit()
     }
 	});
+
+  const populateMainView = (playlistId) =>{
+    setPlaylistId(playlistId)
+  }
 
   return (
     
@@ -33,22 +39,23 @@ const MainBox = (props) => {
       </Gradient>
       <Box height={"100%"} padding={1} flexDirection='row' justifyContent='center' alignItems='center'>
         <Box height={"100%"} width={"15%"} flexDirection="column">
-          <Box borderStyle='single' borderColor={'green'} height={"70%"} width={"100%"}>
-            <PlaylistPage />
-          </Box>
-          <Box borderStyle='single' borderColor={'green'} height={"30%"} width={"100%"}>
-            <MusicPlayer />
-          </Box>
+          <InnerBox boxWidth={"100%"} boxHeight={"70%"} boxComponent={<PlaylistPage populate={populateMainView}/>}/>
+          <InnerBox boxWidth={"100%"} boxHeight={"30%"} boxComponent={<MusicPlayer />}/>
         </Box>
         <Box height={"100%"} width={"85%"} flexDirection="column">
-          <Box borderStyle='single' borderColor={'green'} height={"70%"} width={"100%"}>
-            <MainView userInformation={props.userInformation}/>
-          </Box>
-          <Box borderStyle='single' borderColor={'green'} height={"30%"} width={"100%"}>
-            <Unknown />
-          </Box>
+          <InnerBox boxWidth={"100%"} boxHeight={"70%"} boxComponent={<MainView playlistId={playlistId} userInformation={props.userInformation}/>}/>
+          <InnerBox boxWidth={"100%"} boxHeight={"30%"} boxComponent={<Unknown />}/>
         </Box>
       </Box>
+    </Box>
+  )
+}
+
+const InnerBox = (props) =>{
+
+  return(
+    <Box width={props.boxWidth} height={props.boxHeight} borderStyle='single' borderColor={'green'}>
+      {props.boxComponent}
     </Box>
   )
 }

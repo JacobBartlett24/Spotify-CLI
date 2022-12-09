@@ -3,19 +3,29 @@ const { useState, useEffect } = React;
 const { Box, Text, Newline, useFocus } = require('ink');
 const BigText = require('ink-big-text');
 const axios = require('axios');
-
+const { useRef } = require('react');
 
 const PlaylistPage = (props) =>{
 
     const [playlistData,setPlaylistData] = useState([]);
+    
 
     useEffect(async () => {
-        const temp = await axios.get('/me/playlists')
+        const playlists = await axios.get('/me/playlists')
 
-        setPlaylistData(temp.data.items.map(playlist =>
-            <Playlist playlistId={playlist.id} playlistName={playlist.name}/>
+        setPlaylistData(playlists.data.items.map((playlist, i) =>
+            
+            <Playlist key={playlist.id} playlistId={playlist.id} playlistName={playlist.name} populate={props.populate}/>
         ));
     },[])
+    
+    useEffect(() =>{
+        playlistData.forEach(element => {
+            console.log(element)
+        });
+    }, [playlistData])
+
+
 
     return(
         <Box flexDirection='column'>
@@ -28,10 +38,13 @@ const PlaylistPage = (props) =>{
 
 const Playlist = (props) =>{
     const {isFocused} = useFocus();
+    
+
+
 
     return(
-        <Box key={props.playlistId}>
-            <Text color={isFocused ? 'green' : 'white'} bold>{props.playlistName}</Text>
+        <Box>
+            <Text color={isFocused ? 'green' : 'white'} bold>{isFocused ? props.populate(props.playlistId) : ''}{props.playlistName}</Text>
             <Newline />
         </Box>
     )
