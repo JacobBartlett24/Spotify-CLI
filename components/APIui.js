@@ -13,7 +13,6 @@ const APIui = () =>{
   const {exit} = useApp();
 
   useEffect(() =>{
-    console.log(result)
     if(result !== ''){
       render(<MainBox title='Spotify' userInformation={result}/>)
     }
@@ -21,7 +20,6 @@ const APIui = () =>{
 
   fs.watch('./SpotifyAPI/data.json', () => {
     setResult(fs.readFileSync('./SpotifyAPI/data.json').toString());
-    console.log(result)
   })
 
   useInput(async (input, key) => {
