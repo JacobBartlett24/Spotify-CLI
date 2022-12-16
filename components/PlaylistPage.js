@@ -3,12 +3,10 @@ const { useState, useEffect } = React;
 const { Box, Text, Newline, useFocus } = require('ink');
 const BigText = require('ink-big-text');
 const axios = require('axios');
-const { useRef } = require('react');
 
 const PlaylistPage = (props) =>{
 
     const [playlistData,setPlaylistData] = useState([]);
-    
 
     useEffect(async () => {
         const playlists = await axios.get('/me/playlists')

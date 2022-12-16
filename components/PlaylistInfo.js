@@ -1,6 +1,6 @@
 const React = require('react');
 const { useState, useEffect } = React;
-const { Box, Text, Newline } = require('ink');
+const { Box, Text, Newline, useFocus } = require('ink');
 const BigText = require('ink-big-text');
 const Gradient = require('ink-gradient')
 const axios = require('axios')
@@ -8,7 +8,7 @@ const axios = require('axios')
 
 // Spotify client required parameters
 
-const MainView = (props) =>{
+const PlaylistInfo = (props) =>{
 
     const [data,setData] = useState('')
     const [playlist,setPlaylist] = useState(null)
@@ -28,6 +28,7 @@ const MainView = (props) =>{
     return(
         <Box height={"100%"} width={"100%"} borderStyle='single' flexDirection='column' alignItems='center' justifyContent='center' padding={2}>
             <BigText
+                height={"20%"}
               text= {playlist ? playlist.data.name : 'Playlist Name'}
               font='tiny'
             />
@@ -39,13 +40,14 @@ const MainView = (props) =>{
 
 const Tracks = (props) =>{
     const [tracks,setTracks] = useState([])
-    
+    const {isFocused} = useFocus()
+
     useEffect(async () => {
         if(props.id !== ''){
             const temp = await axios.get(`/playlists/${props.id}/tracks`)
             setTracks(temp.data.items.map((item,i) =>
                 <Box key={i}>
-                    <Text>{item.track.name}</Text>
+                    <Text color={isFocused ? 'green' : 'white'}>{item.track.name}</Text>
                     <Newline />
                 </Box>
             ))
@@ -54,9 +56,9 @@ const Tracks = (props) =>{
 
 
     return(
-        <Box key={props.id}flexDirection='column' height={"30%"} width={"100%"} borderStyle='single'>{props.id ? tracks : <Text>no tracks</Text>}</Box>
+        <Box key={props.id}flexDirection='column' height={"80%"} width={"100%"}>{props.id ? tracks : <Text>no tracks</Text>}</Box>
     )
 }
 
-module.exports = MainView;
+module.exports = PlaylistInfo;
 
