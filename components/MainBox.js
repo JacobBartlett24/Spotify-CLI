@@ -60,12 +60,12 @@ const MainBox = (props) => {
   )
 }
 
-const InnerBox = (props) =>{
-  const {isFocused} = useFocus(props.id)
+const InnerBox = ({id, boxWidth, boxHeight, boxComponent}) =>{
+  const {isFocused} = useFocus({id})
 
   return(
-    <Box width={props.boxWidth} height={props.boxHeight} borderStyle='single' borderColor={'green'}>
-      {props.boxComponent} {isFocused ? 'black' : 'green'}
+    <Box width={boxWidth} height={boxHeight} borderStyle='single' id={id} borderColor={isFocused ? 'green' : 'black'}>
+      {boxComponent} 
     </Box>
   )
 }
