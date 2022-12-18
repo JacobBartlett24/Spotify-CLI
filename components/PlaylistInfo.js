@@ -12,6 +12,17 @@ const PlaylistInfo = (props) =>{
 
     const [data,setData] = useState('')
     const [playlist,setPlaylist] = useState(null)
+    const [tracks,setTracks] = useState([])
+    const {isFocused} = useFocus()
+
+    useEffect(async () => {
+        if(playlist !== '' && props.playlistId != ''){
+            const temp = await axios.get(`/playlists/${props.playlistId}/tracks`)
+            setTracks(temp.data.items.map((item,i) =>
+                <Track key={i} trackName={item.track.name} />
+            ))
+        }
+    },[playlist])
 
     useEffect(async () => {
         const temp = await axios.get('/me')
@@ -32,31 +43,19 @@ const PlaylistInfo = (props) =>{
               text= {playlist ? playlist.data.name : 'Playlist Name'}
               font='tiny'
             />
-            <Tracks id={playlist ? props.playlistId : ''}/>
-
+            {tracks}
         </Box>
     )
 }
 
-const Tracks = (props) =>{
-    const [tracks,setTracks] = useState([])
-    const {isFocused} = useFocus()
-
-    useEffect(async () => {
-        if(props.id !== ''){
-            const temp = await axios.get(`/playlists/${props.id}/tracks`)
-            setTracks(temp.data.items.map((item,i) =>
-                <Box key={i}>
-                    <Text color={isFocused ? 'green' : 'white'}>{item.track.name}</Text>
-                    <Newline />
-                </Box>
-            ))
-        }
-    },[props.id])
-
+const Track = (props) =>{
+    const {isFocused} = useFocus();
 
     return(
-        <Box key={props.id}flexDirection='column' height={"80%"} width={"100%"}>{props.id ? tracks : <Text>no tracks</Text>}</Box>
+        <Box key={props.key}>
+            <Text color={isFocused ? 'green' : 'black'}>{props.trackName}</Text>
+            <Newline />
+        </Box>
     )
 }
 
