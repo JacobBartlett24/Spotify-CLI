@@ -19,7 +19,7 @@ const PlaylistInfo = (props) =>{
         if(playlist !== '' && props.playlistId != ''){
             const temp = await axios.get(`/playlists/${props.playlistId}/tracks`)
             setTracks(temp.data.items.map((item,i) =>
-                <Track key={i} trackName={item.track.name} />
+                <Track id={i} key={i} trackName={item.track.name} />
             ))
         }
     },[playlist])
@@ -52,7 +52,7 @@ const Track = (props) =>{
     const {isFocused} = useFocus();
 
     return(
-        <Box key={props.key}>
+        <Box key={props.id}>
             <Text color={isFocused ? 'green' : 'black'}>{props.trackName}</Text>
             <Newline />
         </Box>
