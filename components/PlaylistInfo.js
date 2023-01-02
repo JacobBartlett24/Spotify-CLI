@@ -19,7 +19,7 @@ const PlaylistInfo = (props) =>{
         if(playlist !== '' && props.playlistId != ''){
             const temp = await axios.get(`/playlists/${props.playlistId}/tracks`)
             setTracks(temp.data.items.map((item,i) =>
-                <Track id={i} key={i} trackName={item.track.name} />
+                <Track song={props.fetchSong} id={i} key={i} trackName={item.track.name} />
             ))
         }
     },[playlist])
@@ -39,9 +39,9 @@ const PlaylistInfo = (props) =>{
     return(
         <Box height={"100%"} width={"100%"} borderStyle='single' flexDirection='column' alignItems='center' justifyContent='center' padding={2}>
             <BigText
-                height={"20%"}
-              text= {playlist ? playlist.data.name : 'Playlist Name'}
-              font='tiny'
+            height={"20%"}
+            text= {playlist ? playlist.data.name : 'Playlist Name'}
+            font='tiny'
             />
             {tracks}
         </Box>
@@ -53,7 +53,10 @@ const Track = (props) =>{
 
     return(
         <Box key={props.id}>
-            <Text color={isFocused ? 'green' : 'black'}>{props.trackName}</Text>
+            <Text color={isFocused ? 'green' : 'black'}>
+                {isFocused ? props.song(props.trackName) : ''}
+                {props.trackName}
+            </Text>
             <Newline />
         </Box>
     )

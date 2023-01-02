@@ -31,7 +31,10 @@ const Playlist = (props) =>{
 
     return(
         <Box>
-            <Text color={isFocused ? 'green' : 'white'} bold>{isFocused ? props.populate(props.playlistId) : ''}{props.playlistName}</Text>
+            <Text color={isFocused ? 'green' : 'white'} 
+                    bold>
+            {isFocused ? props.populate(props.playlistId) : ''}{props.playlistName}
+            </Text>
             <Newline />
         </Box>
     )

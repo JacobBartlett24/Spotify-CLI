@@ -15,7 +15,11 @@ const MusicPlayer = importJsx('./MusicPlayer');
 const Unknown = importJsx('./Unknown');
 
 const MainBox = (props) => {
+
   const [playlistId, setPlaylistId] = useState('')
+  const [song, setSong] = useState('')
+
+  
   const {focus} = useFocusManager();
 
   useInput((input, key) => {
@@ -36,6 +40,10 @@ const MainBox = (props) => {
     setPlaylistId(playlistId)
   }
 
+  const fetchSong = (song) => {
+    setSong(song)
+  }
+
   return (
     
     <Box borderColor={'green'} borderStyle='single' height={58} flexDirection="column">
@@ -52,7 +60,18 @@ const MainBox = (props) => {
           <InnerBox id="2" boxWidth={"100%"} boxHeight={"30%"} boxComponent={<MusicPlayer />}/>
         </Box>
         <Box height={"100%"} width={"85%"} flexDirection="column">
-          <InnerBox id="3" boxWidth={"100%"} boxHeight={"70%"} boxComponent={<PlaylistInfo playlistId={playlistId} userInformation={props.userInformation}/>}/>
+          <InnerBox 
+          id="3" 
+          boxWidth={"100%"} 
+          boxHeight={"70%"} 
+          boxComponent={
+            <PlaylistInfo 
+            playlistId={playlistId} 
+            userInformation={props.userInformation}
+            song={fetchSong}
+            />}
+          />
+          <Text>{song != '' ? song : ''}</Text>
           <InnerBox id="4" boxWidth={"100%"} boxHeight={"30%"} boxComponent={<Unknown />}/>
         </Box>
       </Box>
